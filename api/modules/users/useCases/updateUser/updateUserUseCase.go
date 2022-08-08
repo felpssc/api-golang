@@ -1,4 +1,4 @@
-package updateUser
+package updateUserUseCase
 
 import (
 	"errors"

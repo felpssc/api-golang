@@ -2,6 +2,7 @@ package routes
 
 import (
 	createUserController "github.com/felpssc/api-golang/api/modules/users/useCases/createUser"
+	deleteUserController "github.com/felpssc/api-golang/api/modules/users/useCases/deleteUser"
 	getUserByIdController "github.com/felpssc/api-golang/api/modules/users/useCases/getUserById"
 	listUsersController "github.com/felpssc/api-golang/api/modules/users/useCases/listUsers"
 	updatedUserController "github.com/felpssc/api-golang/api/modules/users/useCases/updateUser"
@@ -13,4 +14,5 @@ func userRoutes(e *echo.Echo) {
 	getUserByIdController.NewGetUserByIdController(e)
 	createUserController.NewCreateUserController(e)
 	updatedUserController.NewUpdateUserController(e)
+	deleteUserController.NewDeleteUserController(e)
 }

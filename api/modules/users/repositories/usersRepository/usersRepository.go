@@ -71,3 +71,18 @@ func UpdateUser(id int, name string) (user.User, error) {
 
 	return user, nil
 }
+
+func DeleteUser(id int) error {
+	var userIndex int
+
+	for i, u := range users {
+		if u.ID == id {
+			userIndex = i
+			break
+		}
+	}
+
+	users = append(users[:userIndex], users[userIndex+1:]...)
+
+	return nil
+}

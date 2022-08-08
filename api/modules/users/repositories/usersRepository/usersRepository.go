@@ -48,3 +48,26 @@ func FindUserByEmail(email string) (user.User, error) {
 
 	return user.User{}, errors.New("user not found")
 }
+
+func UpdateUser(id int, name string) (user.User, error) {
+	user, err := GetUserByID(id)
+
+	if err != nil {
+		return user, errors.New("user not found")
+	}
+
+	user.Name = name
+
+	var userIndex int
+
+	for i, u := range users {
+		if u.ID == id {
+			userIndex = i
+			break
+		}
+	}
+
+	users[userIndex] = user
+
+	return user, nil
+}

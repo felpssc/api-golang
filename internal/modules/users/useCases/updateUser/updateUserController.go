@@ -1,8 +1,9 @@
-package updateUserUseCase
+package usecase
 
 import (
 	"strconv"
 
+	repository "github.com/felpssc/api-golang/internal/modules/users/repositories/usersRepository/implementations"
 	"github.com/labstack/echo/v4"
 )
 
@@ -28,7 +29,9 @@ func updateUserUseCase(c echo.Context) error {
 		return c.JSON(400, "Invalid id")
 	}
 
-	user, err := UpdateUserUseCase(id, name)
+	usersRepository := repository.NewLocalUsersRepository()
+
+	user, err := NewUpdateUserUseCase(usersRepository).execute(id, name)
 
 	if err != nil {
 		return c.JSON(400, err.Error())

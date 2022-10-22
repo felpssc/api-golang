@@ -1,6 +1,7 @@
-package createUserUseCase
+package usecase
 
 import (
+	repository "github.com/felpssc/api-golang/internal/modules/users/repositories/usersRepository/implementations"
 	"github.com/labstack/echo/v4"
 )
 
@@ -19,7 +20,9 @@ func createUserUseCase(c echo.Context) error {
 	name := json["name"].(string)
 	email := json["email"].(string)
 
-	createdUser, err := CreateUserUseCase(name, email)
+	usersRepository := repository.NewLocalUsersRepository()
+
+	createdUser, err := NewCreateUserUseCase(usersRepository).execute(name, email)
 
 	if err != nil {
 		return c.JSON(400, err.Error())

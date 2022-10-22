@@ -1,8 +1,9 @@
-package deleteUserUseCase
+package usecase
 
 import (
 	"strconv"
 
+	repository "github.com/felpssc/api-golang/internal/modules/users/repositories/usersRepository/implementations"
 	"github.com/labstack/echo/v4"
 )
 
@@ -19,7 +20,9 @@ func deleteUserUseCase(c echo.Context) error {
 		return c.JSON(400, "invalid id")
 	}
 
-	err = DeleteUserUseCase(id)
+	usersRepository := repository.NewLocalUsersRepository()
+
+	err = NewDeleteUserUseCase(usersRepository).execute(id)
 
 	if err != nil {
 		return c.JSON(500, err.Error())

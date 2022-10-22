@@ -1,8 +1,9 @@
-package getUserById
+package usecase
 
 import (
 	"strconv"
 
+	repository "github.com/felpssc/api-golang/internal/modules/users/repositories/usersRepository/implementations"
 	"github.com/labstack/echo/v4"
 )
 
@@ -20,7 +21,9 @@ func getUserByIdUseCase(c echo.Context) error {
 		return c.JSON(400, "Invalid id")
 	}
 
-	user, err := GetUserByIdUseCase(id)
+	usersRepository := repository.NewLocalUsersRepository()
+
+	user, err := NewGetUserByIdUseCase(usersRepository).execute(id)
 
 	if err != nil {
 		return c.JSON(200, err.Error())

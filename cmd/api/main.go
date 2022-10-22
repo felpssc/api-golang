@@ -1,7 +1,7 @@
 package main
 
 import (
-	router "github.com/felpssc/api-golang/api/routes"
+	router "github.com/felpssc/api-golang/internal/routes"
 	"github.com/labstack/echo/v4"
 )
 

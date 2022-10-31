@@ -3,7 +3,9 @@ package usecase
 import (
 	"strconv"
 
+	IusersRepository "github.com/felpssc/api-golang/internal/modules/users/repositories/usersRepository"
 	repository "github.com/felpssc/api-golang/internal/modules/users/repositories/usersRepository/implementations"
+	utils "github.com/felpssc/api-golang/pkg/utils/repositoryManager"
 	"github.com/labstack/echo/v4"
 )
 
@@ -20,7 +22,10 @@ func deleteUserUseCase(c echo.Context) error {
 		return c.JSON(400, "invalid id")
 	}
 
-	usersRepository := repository.NewLocalUsersRepository()
+	usersRepository := utils.GetRepository[IusersRepository.UsersRepository](
+		repository.NewPostgresUsersRepository(),
+		repository.NewLocalUsersRepository(),
+	)
 
 	err = NewDeleteUserUseCase(usersRepository).execute(id)
 

@@ -17,7 +17,7 @@ func NewCreateUserUseCase(usersRepository repository.UsersRepository) *CreateUse
 	}
 }
 
-func (s CreateUserUseCase) execute(name string, email string) (user.User, error) {
+func (s CreateUserUseCase) execute(name string, email string, password string) (user.User, error) {
 
 	userAlreadyExists, _ := s.UsersRepository.FindUserByEmail(email)
 
@@ -25,7 +25,7 @@ func (s CreateUserUseCase) execute(name string, email string) (user.User, error)
 		return user.User{}, errors.New("user already exists")
 	}
 
-	createdUser, _ := s.UsersRepository.CreateUser(name, email)
+	createdUser, _ := s.UsersRepository.CreateUser(name, email, password)
 
 	return createdUser, nil
 }

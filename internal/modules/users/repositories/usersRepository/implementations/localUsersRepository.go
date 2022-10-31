@@ -5,8 +5,20 @@ import (
 )
 
 var users = []entity.User{
-	{ID: 1, Name: "John", Email: "Laney.Hudson@hotmail.com", IsAdmin: true},
-	{ID: 2, Name: "Jane", Email: "Laney.Hudson@hotmail.com", IsAdmin: false},
+	{
+		ID:       1,
+		Name:     "John",
+		Email:    "Laney.Hudson@hotmail.com",
+		Password: "e8ene83nf94n2d23a1o3",
+		IsAdmin:  true,
+	},
+	{
+		ID:       2,
+		Name:     "Jane",
+		Email:    "Laney.Hudson@hotmail.com",
+		Password: "8r3e2dnfn3e99fa220d",
+		IsAdmin:  false,
+	},
 }
 
 type LocalUsersRepository struct{}
@@ -15,7 +27,7 @@ func NewLocalUsersRepository() *LocalUsersRepository {
 	return &LocalUsersRepository{}
 }
 
-func (u LocalUsersRepository) CreateUser(name string, email string) (entity.User, error) {
+func (u LocalUsersRepository) CreateUser(name string, email string, password string) (entity.User, error) {
 	user := entity.User{
 		ID:      len(users) + 1,
 		Name:    name,

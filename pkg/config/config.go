@@ -2,7 +2,9 @@ package config
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"regexp"
 
 	entities "github.com/felpssc/api-golang/internal/modules/users/entities/user"
 	"github.com/joho/godotenv"
@@ -12,13 +14,21 @@ import (
 
 var db *gorm.DB
 
-func Connect() {
+const projectDirName = "api-golang" // change to relevant project name
 
-	err := godotenv.Load()
+func loadEnv() {
+	projectName := regexp.MustCompile(`^(.*` + projectDirName + `)`)
+	currentWorkDirectory, _ := os.Getwd()
+	rootPath := projectName.Find([]byte(currentWorkDirectory))
+
+	err := godotenv.Load(string(rootPath) + `/.env`)
 
 	if err != nil {
-		panic("Failed to load .env file")
+		log.Fatalf("Error loading .env file")
 	}
+}
+
+func Connect() {
 
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
 		os.Getenv("DB_HOST"),
@@ -44,6 +54,8 @@ func GetDB() *gorm.DB {
 }
 
 func init() {
+	loadEnv()
+
 	Connect()
 	db = GetDB()
 	db.AutoMigrate(&entities.User{})

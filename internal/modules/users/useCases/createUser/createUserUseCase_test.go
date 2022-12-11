@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"os"
 	"testing"
 
 	"github.com/bxcodec/faker/v3"
@@ -8,6 +9,10 @@ import (
 	repository "github.com/felpssc/api-golang/internal/modules/users/repositories/usersRepository/implementations"
 	"github.com/stretchr/testify/assert"
 )
+
+func init() {
+	os.Setenv("GO_APP_ENV", "dev")
+}
 
 func TestCreateUser(t *testing.T) {
 	usersRepository := repository.NewLocalUsersRepository()

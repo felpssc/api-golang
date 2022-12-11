@@ -4,22 +4,7 @@ import (
 	entity "github.com/felpssc/api-golang/internal/modules/users/entities/user"
 )
 
-var users = []entity.User{
-	{
-		ID:       1,
-		Name:     "John",
-		Email:    "Laney.Hudson@hotmail.com",
-		Password: "e8ene83nf94n2d23a1o3",
-		IsAdmin:  true,
-	},
-	{
-		ID:       2,
-		Name:     "Jane",
-		Email:    "Laney.Hudson@hotmail.com",
-		Password: "8r3e2dnfn3e99fa220d",
-		IsAdmin:  false,
-	},
-}
+var users = []entity.User{}
 
 type LocalUsersRepository struct{}
 
